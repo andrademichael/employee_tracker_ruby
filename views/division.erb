@@ -1,0 +1,15 @@
+<h1><%= @division.name() %></h1>
+
+<h3>What changes do you want to make?</h3>
+<form action="/divisions" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="hidden" name="id" id="id" value="<%= @division.id() %>">
+  <label class="form-group" for="name">Change Division Name:</label>
+  <input type="text" name="name" id="name" placeholder="<%= @division.name %>">
+  <button type="submit" name="button" class="btn btn-info">Change Name</button>
+</form>
+
+<form action="/division/<%= @division.id()%>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger">Delete Division?</button>
+</form>
