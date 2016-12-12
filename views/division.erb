@@ -1,15 +1,40 @@
 <h1><%= @division.name() %></h1>
 
-<h3>What changes do you want to make?</h3>
-<form action="/divisions" method="post">
-  <input type="hidden" name="_method" value="patch">
-  <input type="hidden" name="id" id="id" value="<%= @division.id() %>">
-  <label class="form-group" for="name">Change Division Name:</label>
-  <input type="text" name="name" id="name" placeholder="<%= @division.name %>">
-  <button type="submit" name="button" class="btn btn-info">Change Name</button>
-</form>
+<div class="row">
+  <div class="col-md-6">
+    <h1>Employees:</h1>
+      <% if @employees.any?() %>
+        <h3>Employees of this division:</h3>
+        <ul>
+          <% @employees.each() do |employee| %>
+            <li><a href="/employees/<%= employee.id()%>"><%= employee.name() %></a></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>This division has no employees!</p>
+      <% end %>
+    <form action="/division/<%= @division.id() %>/employee_form" method="post">
+    <input type="hidden" name="division_id" value="<%= @division.id() %>">
+    <button class="btn btn-success" type="submit">Add an employee</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <h1>Edit Division</h1>
+    <h3>What changes do you want to make?</h3>
+    <form action="/divisions" method="post">
+      <input type="hidden" name="_method" value="patch">
+      <input type="hidden" name="id" id="id" value="<%= @division.id() %>">
+      <label class="form-group" for="name">Change Division Name:</label>
+      <input type="text" name="name" id="name" placeholder="<%= @division.name %>">
+      <button type="submit" name="button" class="btn btn-info">Change Name</button>
+    </form>
 
-<form action="/division/<%= @division.id()%>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit" class="btn btn-danger">Delete Division?</button>
-</form>
+    <form action="/division/<%= @division.id()%>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button type="submit" class="btn btn-danger">Delete Division?</button>
+    </form>
+    <br>
+    <a class="btn btn-primary" href="/divisions">Return to divisions page</a>
+    <a class="btn btn-warning" href="/">Return Home</a>
+  </div>
+</div>

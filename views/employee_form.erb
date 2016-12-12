@@ -1,0 +1,8 @@
+<h1>Employee Creation for Division <%= @division.id() %></h1>
+
+<form action="/new_employee" method="post">
+  <input type="hidden" name="division_id" id="division_id" value="<%= @division.id() %>">
+  <label for="employee_name">Employee Name:</label>
+  <input type="text" name="employee_name" placeholder="Jane Doe">
+  <button type="submit" class="btn btn-primary">Add this employee</button>
+</form>

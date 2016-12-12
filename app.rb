@@ -20,7 +20,7 @@ post('/divisions') do
   name = params.fetch("name")
   division = Division.new({:name => name, :id => nil})
   division.save()
-  erb(:division_success)
+  erb(:success)
 end
 
 get('/divisions/new') do
@@ -31,16 +31,32 @@ patch('/divisions') do
   @division = Division.find(params.fetch("id").to_i())
   name = params.fetch("name")
   @division.update({:name => name})
-  erb(:division_success)
+  erb(:success)
 end
 
-get('/divisions/:id') do
+get('/division/:id') do
   @division = Division.find(params.fetch("id").to_i)
+  @employees = Employee.where(division_id: @division.id).order(name: :desc)
   erb(:division)
 end
+
+# post('/divisions/:id')
 
 delete('/division/:id') do
   @division = Division.find(params.fetch('id').to_i())
   @division.delete()
-  erb(:division_success)
+  erb(:success)
+end
+
+post('/division/:id/employee_form') do
+  @division = Division.find(params.fetch('division_id').to_i())
+  erb(:employee_form)
+end
+
+post('/new_employee') do
+  @division = Division.find(params.fetch('division_id').to_i)
+  new_name = params.fetch('employee_name')
+  new_employee = Employee.new({:name => new_name, :division_id => @division.id()})
+  new_employee.save()
+  erb(:success)
 end

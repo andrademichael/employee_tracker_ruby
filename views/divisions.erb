@@ -5,10 +5,12 @@
 
   <ul>
     <% @divisions.each() do |division| %>
-      <li><a href="/divisions/<%= division.id()%>"><%= division.name() %></a></li>
+      <li><a href="/division/<%= division.id()%>"><%= division.name() %></a></li>
     <% end %>
   </ul>
 
 <% else %>
   <p>There are no divisions yet!</p>
 <% end %>
+
+<a href="/" class="btn btn-primary">Return Home</a>
